@@ -1,0 +1,11 @@
+# Cloudflare Workers — static assets only (sem código de Worker).
+# Serve o export estático do Next.js (./out) gerado por `npm run build`.
+# Deploy: `npm run deploy` (local) ou via .github/workflows/deploy.yml (CI).
+name = "glp1"
+compatibility_date = "2025-09-01"
+
+[assets]
+directory = "./out"
+# Rotas sem extensão (/dose) resolvem para dose.html; 404 usa 404.html.
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
