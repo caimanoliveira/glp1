@@ -2,7 +2,7 @@
 // This is a single-user personal app; the caching strategy is intentionally
 // simple (cache-first for the app shell, network-first for navigations).
 const CACHE = "tirze-v1";
-const SHELL = ["/", "/dose", "/sintomas", "/corpo", "/treino", "/config", "/manifest.webmanifest", "/icon.svg"];
+const SHELL = ["/", "/dose", "/sintomas", "/corpo", "/treino", "/config", "/manifest.webmanifest", "/icon.svg", "/icon-192.png", "/icon-512.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).catch(() => {}));

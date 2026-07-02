@@ -1,5 +1,5 @@
 // Dados iniciais (§3, §8). Populados no primeiro run (modo local).
-import { estimateTDEE } from "./calc";
+import { clampKcalTarget, estimateTDEE } from "./calc";
 import type { AppData, NutritionLog, Profile } from "./types";
 
 export const MEAL_TEMPLATE = [
@@ -31,10 +31,11 @@ export const SUBSTITUTIONS = {
 } as const;
 
 export function defaultProfile(): Profile {
-  // idade desconhecida → TDEE/kcal ficam null até input.
-  const idade = null;
+  const idade = 33; // informada pelo usuário; habilita TDEE/meta calórica
   const fator = 1.5; // fator de atividade default (faixa 1,4–1,6)
-  const tdee = estimateTDEE(75.0, 173, idade, "M", fator); // null enquanto idade null
+  const tdee = estimateTDEE(75.0, 173, idade, "M", fator);
+  // Déficit modesto (~350 kcal), respeitando a trava anti-déficit (TDEE − 400).
+  const kcalAlvo = clampKcalTarget(tdee != null ? tdee - 350 : 0, tdee, 400).value;
   return {
     altura_cm: 173,
     sexo: "M",
@@ -44,7 +45,7 @@ export function defaultProfile(): Profile {
     proteina_g_alvo: 135,
     fibra_g_alvo: 30,
     liquidos_ml_alvo: 3300,
-    kcal_alvo: null,
+    kcal_alvo: kcalAlvo,
     tdee_kcal: tdee,
     deficit_max_kcal: 400,
     gordura_pct_alvo: null,
