@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#0d9488"/>
+  <g fill="none" stroke="#ffffff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Stylized pen/syringe -->
+    <path d="M150 362 L300 212"/>
+    <path d="M300 212 L360 152 L400 192 L340 252 Z" fill="#ccfbf1" stroke="#ccfbf1"/>
+    <path d="M150 362 L130 382 L120 400 L138 382 Z" fill="#ffffff"/>
+    <path d="M258 254 L288 284" />
+    <path d="M228 284 L258 314" />
+  </g>
+</svg>
