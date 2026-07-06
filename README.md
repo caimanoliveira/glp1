@@ -38,6 +38,27 @@ perfil inicial, 1 dia de nutrição de exemplo (~135 g proteína / ~2000 kcal) e
    e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
 3. RLS: todas as tabelas têm a policy `owner_all` filtrando por `user_id = auth.uid()`.
 
+## Deploy (Cloudflare)
+
+O app é exportado como site estático (`output: "export"` → `./out`) e servido no
+**Cloudflare Workers (static assets)** — config em [`wrangler.toml`](./wrangler.toml).
+
+**Automático (CI):** `.github/workflows/deploy.yml` faz build + deploy a cada push
+no `main`. Defina dois secrets no repositório (Settings → Secrets and variables → Actions):
+
+- `CLOUDFLARE_API_TOKEN` — token com permissão *Workers Scripts: Edit*.
+- `CLOUDFLARE_ACCOUNT_ID` — ID da sua conta Cloudflare.
+
+**Manual (local):**
+
+```bash
+npm run deploy      # roda build e `wrangler deploy` (requer `wrangler login`)
+```
+
+Sem env vars o app funciona em modo local (localStorage). Para sincronizar via
+Supabase em produção, adicione `NEXT_PUBLIC_SUPABASE_URL` e
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` como variáveis de build no Cloudflare.
+
 ## Telas
 
 | Tela | O que faz |
